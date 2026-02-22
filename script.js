@@ -19,23 +19,13 @@ function colorBtn(id) {
     btn.classList.add('btn-primary')
 
     showOnly(btn)
+    // showDefault(btn)
 
 
 
 }
 
-// document.getElementById('card1').addEventListener('click', function (e) {
 
-//     if (e.target.classList.contains('btn') && !e.target.classList.contains('bg-primary-content') && !e.target.classList.contains('flex')) {
-
-//         if(e.target.innerText === 'INTERVIEW'){
-
-//             console.log(e.target.parentNode.parentNode.parentNode.innerHTML)
-//         }
-
-//     }
-
-// })
 
 function showOnly(btn) {
 
@@ -48,10 +38,68 @@ function showOnly(btn) {
     rejected.classList.add('hidden')
 
 
-    document.getElementById(`${btn.id}-section`).classList.remove("hidden")
-    // console.log()
+
+
+    const activeSection = document.getElementById(`${btn.id}-section`)
+
+    activeSection.classList.remove("hidden")
+
+    // HIDING DEFAULT CARD
+    activeSection.querySelector(".default").classList.add("hidden")
 
 
 
 
 }
+let interviewPageData = []
+
+
+let rejectedPageData = []
+
+document.getElementById('cards').addEventListener('click', function (e) {
+
+
+    if (e.target.classList.contains('btn') && !e.target.classList.contains('bg-primary-content') && !e.target.classList.contains('flex')) {
+
+        if (e.target.innerText === 'INTERVIEW') {
+            const card = e.target.parentNode.parentNode.parentNode.innerHTML
+
+            const duplicate = interviewPageData.filter((c) => c == card)
+
+
+            if (duplicate.length > 0) {
+                return alert("Already Applied")
+            }
+
+            interviewPageData.push(card)
+            document.getElementById("interview-container").innerHTML = interviewPageData.join("")
+            document.getElementById("interview-count").innerText = interviewPageData.length
+            // PREVENT DUPLICATE DATA
+
+
+
+
+
+
+        }
+        else if (e.target.innerText === "REJECTED") {
+            const card = e.target.parentNode.parentNode.parentNode.innerHTML
+            const duplicate = rejectedPageData.filter((c) => c == card)
+
+
+            if (duplicate.length > 0) {
+                return alert("Already Rejected")
+            }
+
+            rejectedPageData.push(e.target.parentNode.parentNode.parentNode.innerHTML)
+            document.getElementById("rejected-count").innerText = rejectedPageData.length
+
+
+
+            document.getElementById("rejected-container").innerHTML = rejectedPageData.join("")
+        }
+
+    }
+
+})
+
