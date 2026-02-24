@@ -82,13 +82,13 @@ function showOnly(btn) {
 
         document.getElementById("job-count").innerText = document.getElementById('rejected-container').childElementCount
         //BUTTON COLORING FOR REJECTED PAGE 
-        // const allData = document.getElementById("rejected-container").querySelectorAll(".statusBtn")
-        // for (let single of allData) {
-        //     single.className = ""
-        //     single.classList.add("btn", "text-red-500", "border", "border-red-500", "statusBtn")
-        //     single.innerText = "REJECTED"
+        const allData = document.getElementById("rejected-container").querySelectorAll(".statusBtn")
+        for (let single of allData) {
+            single.className = ""
+            single.classList.add("btn", "text-red-500", "border", "border-red-500", "statusBtn")
+            single.innerText = "REJECTED"
 
-        // }
+        }
 
     }
     else if (activeSection.id === "all-section") {
@@ -104,7 +104,9 @@ function showOnly(btn) {
 let interviewPageData = []
 const renderInterviewPage = () => {
     document.getElementById("interview-container").innerHTML = interviewPageData.join("")
-
+    if (interviewPageData.length === 0) {
+        document.getElementById('interview-default-card').classList.remove('hidden')
+    }
 }
 
 
@@ -137,15 +139,17 @@ document.getElementById('cards').addEventListener('click', function (e) {
             if (duplicate.length > 0 || duplicate2.length > 0) {
                 return alert("Already Applied")
             }
-
-            interviewPageData.push(card)
-            document.getElementById("interview-container").innerHTML = interviewPageData.join("")
-            document.getElementById("interview-count").innerText = interviewPageData.length
             // SET STATUS
             const status = e.target.parentNode.parentNode.parentNode.querySelector(".statusBtn")
             status.className = ""
             status.innerText = e.target.innerText
             status.classList.add("btn", "text-green-500", "border", "border-green-500", "statusBtn")
+
+            // push 
+
+            interviewPageData.push(e.target.parentNode.parentNode.parentNode.innerHTML)
+            document.getElementById("interview-container").innerHTML = interviewPageData.join("")
+            document.getElementById("interview-count").innerText = interviewPageData.length
 
 
 

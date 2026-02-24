@@ -3,6 +3,12 @@ section{
     margin: auto;
     padding: 0px 20px;
 }
+@media screen and (max-width:640px) {
+    section{
+        padding: 0px 10px;
+    }
+    
+}
 i{
     pointer-events: none;
 }
